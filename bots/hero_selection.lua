@@ -24,8 +24,8 @@
 debug = true;
 
 --force selectes all heroes to value of requireHero
-requireHero = "npc_dota_hero_axe";
-useRequiredHero = true;
+requireHero = "";
+useRequiredHero = false;
 
 --All currently supported bots
 allBotHeroes = {
@@ -80,48 +80,26 @@ function Think()
 
 	if (DotaTime() + delay >= delay-1 and not useRequiredHero)
 	then
-
-		if ( GetTeam() == TEAM_RADIANT )
-		then
-			SelectHero(0, selectRandomHero());
-			SelectHero(1, selectRandomHero());
-			SelectHero(2, selectRandomHero());
-			SelectHero(3, selectRandomHero());
-			SelectHero(4, selectRandomHero());
-		elseif ( GetTeam() == TEAM_DIRE )
-		then
-			SelectHero(5, selectRandomHero());
-			SelectHero(6, selectRandomHero());
-			SelectHero(7, selectRandomHero());
-			SelectHero(8, selectRandomHero());
-			SelectHero(9, selectRandomHero());
+		--For each slot select a random hero
+		for i=0,9 do
+			SelectHero(i, selectRandomHero());
 		end
 
 	elseif (useRequiredHero)
-		then
-
-			if ( GetTeam() == TEAM_RADIANT )
-			then
-				SelectHero(0, requireHero);
-				SelectHero(1, requireHero);
-				SelectHero(2, requireHero);
-				SelectHero(3, requireHero);
-				SelectHero(4, requireHero);
-			elseif ( GetTeam() == TEAM_DIRE )
-			then
-				SelectHero(5, requireHero);
-				SelectHero(6, requireHero);
-				SelectHero(7, requireHero);
-				SelectHero(8, requireHero);
-				SelectHero(9, requireHero);
-			end
+	then
+		--For each slot select the requiredHero
+		for i=0,9 do
+			SelectHero(i, requireHero);
 		end
+
+	end
+
 end
 
 ----------------------------------------------------------------------------------------------------
 --Global Functions--
 
-function selectRandomHero(teamSlot)
+function selectRandomHero()
 
 	--updates selected heroes list
 	for i=0,9 do
