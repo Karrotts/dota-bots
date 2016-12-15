@@ -10,10 +10,24 @@
 	In the Think() function the remaining slots will be filled with a random hero from
 	the list of currently supported heroes.
 
+	--Todo--
+	-Find any players and dont fill those slots with people. - Unknown if possible with current API
+	-Fill bot slots with random bots - DONE
+	-Make sure bots dont select a hero that is already choosen. - DONE
+	-Fill bots with the needed role
+	-Add debug support for specific heroes - DONE
 
 ]]
 ----------------------------------------------------------------------------------------------------
 
+--Turns on debug messages
+debug = true;
+
+--force selectes all heroes to value of requireHero
+requireHero = "npc_dota_hero_axe";
+useRequiredHero = true;
+
+--All currently supported bots
 allBotHeroes = {
 		'npc_dota_hero_axe',
 		'npc_dota_hero_bane',
@@ -56,15 +70,84 @@ allBotHeroes = {
 		'npc_dota_hero_zuus'
 };
 
+--Array of all currently selected heroes
+selectedHeroes = {};
+
 function Think()
-	print(GetBot(1))
-	if ( GetTeam() == TEAM_RADIANT )
-		--Assign the remaining slots with random bots
+	print(requireHero)
+	--Time delay when choosing heroes
+	local delay = 70;
+
+	if (DotaTime() + delay >= delay-1 and not useRequiredHero)
 	then
-	elseif ( GetTeam() == TEAM_DIRE )
-		--Assign the remaining slots with random bots
-	then
+
+		if ( GetTeam() == TEAM_RADIANT )
+		then
+			SelectHero(0, selectRandomHero());
+			SelectHero(1, selectRandomHero());
+			SelectHero(2, selectRandomHero());
+			SelectHero(3, selectRandomHero());
+			SelectHero(4, selectRandomHero());
+		elseif ( GetTeam() == TEAM_DIRE )
+		then
+			SelectHero(5, selectRandomHero());
+			SelectHero(6, selectRandomHero());
+			SelectHero(7, selectRandomHero());
+			SelectHero(8, selectRandomHero());
+			SelectHero(9, selectRandomHero());
+		end
+
+	elseif (useRequiredHero)
+		then
+
+			if ( GetTeam() == TEAM_RADIANT )
+			then
+				SelectHero(0, requireHero);
+				SelectHero(1, requireHero);
+				SelectHero(2, requireHero);
+				SelectHero(3, requireHero);
+				SelectHero(4, requireHero);
+			elseif ( GetTeam() == TEAM_DIRE )
+			then
+				SelectHero(5, requireHero);
+				SelectHero(6, requireHero);
+				SelectHero(7, requireHero);
+				SelectHero(8, requireHero);
+				SelectHero(9, requireHero);
+			end
+		end
+end
+
+----------------------------------------------------------------------------------------------------
+--Global Functions--
+
+function selectRandomHero(teamSlot)
+
+	--updates selected heroes list
+	for i=0,9 do
+		selectedHeroes[i] = GetSelectedHeroName(i);
+		if (debug and selectedHeroes[i] ~= "") then print(selectedHeroes[i]) end; -- Debug Text
 	end
+
+	--Sets the randomseed to current time
+	math.randomseed(RealTime());
+
+	--Randomly generates a hero from bot list
+	local hero = allBotHeroes[math.random(table.getn(allBotHeroes))];
+		if (debug) then print(hero) end -- Debug Text
+
+	--Checks to see if a the random hero is repeated
+	for i=0,table.getn(allBotHeroes) do --This for loop helps ensure no heroes are repeated
+		for _,v in pairs(selectedHeroes) do
+	  	if v == hero then
+					hero = allBotHeroes[math.random(table.getn(allBotHeroes))]
+					if (debug) then print("Repeat hero repicking...") end -- Debug Text
+		  end
+		end
+	end
+
+	--returns hero
+	return hero;
 
 end
 
