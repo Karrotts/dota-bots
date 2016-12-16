@@ -77,9 +77,9 @@ function selectRandomHero()
 	for i=0,table.getn(allBotHeroes) do --This for loop helps ensure no heroes are repeated
 		for _,v in pairs(selectedHeroes) do
 	  	if v == hero then
-				hero = allBotHeroes[math.random(table.getn(allBotHeroes))]
-				if (debug) then print("Repeat hero repicking...") end -- Debug Text
-		  end
+			hero = allBotHeroes[math.random(table.getn(allBotHeroes))]
+			if (debug) then print("Repeat hero repicking...") end -- Debug Text
+			end
 		end
 	end
 
