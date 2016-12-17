@@ -117,43 +117,91 @@
 
 --All currently supported bots
   allBotHeroes = {
-    'npc_dota_hero_axe',
-    'npc_dota_hero_bane',
+    'npc_dota_hero_axe', --other
+    'npc_dota_hero_bane', --support
+    'npc_dota_hero_bloodseeker', --carry
+    'npc_dota_hero_bounty_hunter', --other
+    'npc_dota_hero_bristleback', --other
+    'npc_dota_hero_chaos_knight', --carry
+    'npc_dota_hero_crystal_maiden', --support
+    'npc_dota_hero_dazzle', --support
+    'npc_dota_hero_death_prophet', --carry
+    'npc_dota_hero_dragon_knight', --other
+    'npc_dota_hero_drow_ranger', --carry
+    'npc_dota_hero_earthshaker', --support
+    'npc_dota_hero_jakiro', --support
+    'npc_dota_hero_juggernaut', --carry
+    'npc_dota_hero_kunkka', --carry
+    'npc_dota_hero_lich', --support
+    'npc_dota_hero_lina', --scarry/support
+    'npc_dota_hero_lion', --support
+    'npc_dota_hero_luna', --carry
+    'npc_dota_hero_necrolyte', --scarry
+    'npc_dota_hero_nevermore', --carry
+    'npc_dota_hero_omniknight', --support
+    'npc_dota_hero_oracle', --support
+    'npc_dota_hero_phantom_assassin', --carry
+    'npc_dota_hero_pudge', --carry
+    'npc_dota_hero_razor', --carry
+    'npc_dota_hero_sand_king', --other
+    'npc_dota_hero_skeleton_king', --carry
+    'npc_dota_hero_skywrath_mage', --support
+    'npc_dota_hero_sniper', --carry
+    'npc_dota_hero_sven', --carry
+    'npc_dota_hero_tidehunter', --other
+    'npc_dota_hero_tiny', --carry
+    'npc_dota_hero_vengefulspirit', --support
+    'npc_dota_hero_viper', --carry
+    'npc_dota_hero_warlock', --support
+    'npc_dota_hero_windrunner', --scarry/support
+    'npc_dota_hero_witch_doctor', --support
+    'npc_dota_hero_zuus' --other
+  };
+
+  botCarry = {
     'npc_dota_hero_bloodseeker',
-    'npc_dota_hero_bounty_hunter',
-    'npc_dota_hero_bristleback',
     'npc_dota_hero_chaos_knight',
-    'npc_dota_hero_crystal_maiden',
-    'npc_dota_hero_dazzle',
     'npc_dota_hero_death_prophet',
-    'npc_dota_hero_dragon_knight',
     'npc_dota_hero_drow_ranger',
-    'npc_dota_hero_earthshaker',
-    'npc_dota_hero_jakiro',
     'npc_dota_hero_juggernaut',
     'npc_dota_hero_kunkka',
-    'npc_dota_hero_lich',
-    'npc_dota_hero_lina',
-    'npc_dota_hero_lion',
     'npc_dota_hero_luna',
-    'npc_dota_hero_necrolyte',
     'npc_dota_hero_nevermore',
-    'npc_dota_hero_omniknight',
-    'npc_dota_hero_oracle',
     'npc_dota_hero_phantom_assassin',
     'npc_dota_hero_pudge',
     'npc_dota_hero_razor',
-    'npc_dota_hero_sand_king',
     'npc_dota_hero_skeleton_king',
-    'npc_dota_hero_skywrath_mage',
     'npc_dota_hero_sniper',
     'npc_dota_hero_sven',
-    'npc_dota_hero_tidehunter',
     'npc_dota_hero_tiny',
-    'npc_dota_hero_vengefulspirit',
-    'npc_dota_hero_viper',
-    'npc_dota_hero_warlock',
-    'npc_dota_hero_windrunner',
-    'npc_dota_hero_witch_doctor',
-    'npc_dota_hero_zuus'
+    'npc_dota_hero_viper'
   };
+
+  botSupport = {
+    'npc_dota_hero_bane',
+    'npc_dota_hero_crystal_maiden',
+    'npc_dota_hero_dazzle',
+    'npc_dota_hero_earthshaker',
+    'npc_dota_hero_jakiro',
+    'npc_dota_hero_lich',
+    'npc_dota_hero_lion',
+    'npc_dota_hero_omniknight',
+    'npc_dota_hero_oracle',
+    'npc_dota_hero_skywrath_mage',
+    'npc_dota_hero_vengefulspirit',
+    'npc_dota_hero_warlock',
+    'npc_dota_hero_witch_doctor'
+  };
+
+  botOther = {
+    'npc_dota_hero_axe',
+    'npc_dota_hero_bounty_hunter',
+    'npc_dota_hero_bristleback',
+    'npc_dota_hero_dragon_knight',
+    'npc_dota_hero_lina',
+    'npc_dota_hero_necrolyte',
+    'npc_dota_hero_sand_king',
+    'npc_dota_hero_tidehunter',
+    'npc_dota_hero_windrunner',
+    'npc_dota_hero_zuus'
+  }
