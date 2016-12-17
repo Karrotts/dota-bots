@@ -1,7 +1,7 @@
 --[[
 
 	In the Think() function the remaining slots will be filled with a random hero from
-	the list of currently supported heroes.
+	the list of currently supported heroes based on the current teams composition.
 
 	--Todo--
 	-Find any players and dont fill those slots with people. - Unknown if possible with current API
@@ -10,8 +10,8 @@
 	-Fill bots with the needed role - DONE
 	-Add debug support for specific heroes - DONE
 	-Sort all heroes into subclasses and update calculateTeamComp()
-	-Add debug support for calculateTeamComp()
-	-Clean Debug messages
+	-Add debug support for calculateTeamComp() -DONE
+	-Clean Debug messages - DONE
 
 ]]
 ----------------------------------------------------------------------------------------------------
@@ -20,7 +20,7 @@
 require( GetScriptDirectory().."/heroes" )
 
 --Turns on debug messages
-debug = false;
+debug = true;
 
 --force selectes all heroes to value of requireHero
 requireHero = "npc_dota_hero_lina";
@@ -84,7 +84,7 @@ function selectRandomHero(slot)
 
 		end
 
-		if (debug and selectedHeroes[i] ~= "") then print(selectedHeroes[i]) end; -- Debug Text
+		if (debug and selectedHeroes[i] ~= "") then print("Slot " .. i .. ": " .. selectedHeroes[i]) end; -- Debug Text
 	end
 
 	--Sets the randomseed to current time
@@ -93,17 +93,13 @@ function selectRandomHero(slot)
 		local hero; -- I'm you're average everyday local hero
 
 		--Randomly generates a hero from bot list
-		if(calculateTeamComp(slot) == 1) then hero = botCarry[math.random(table.getn(botCarry))] end       --
-		if(calculateTeamComp(slot) == 2) then hero = botOther[math.random(table.getn(botOther))] end				-- TODO: Convert this block of code into a function
-		if(calculateTeamComp(slot) == 3) then hero = botSupport[math.random(table.getn(botSupport))] end   --
+		hero = generateHero(calculateTeamComp(slot));
 
 		--Checks to see if a the random hero is repeated
 		for i=0,table.getn(allBotHeroes) do --This for loop helps ensure no heroes are repeated
 			for _,v in pairs(selectedHeroes) do
 				if v == hero then
-					if(calculateTeamComp(slot) == 1) then hero = botCarry[math.random(table.getn(botCarry))] end  		 --
-					if(calculateTeamComp(slot) == 2) then hero = botOther[math.random(table.getn(botOther))] end      -- TODO: Convert this block of code into a function
-					if(calculateTeamComp(slot) == 3) then hero = botSupport[math.random(table.getn(botSupport))] end  --
+					hero = generateHero(calculateTeamComp(slot));
 
 					if (debug) then print("Repeat hero repicking...") end -- Debug Text
 				end
@@ -118,7 +114,7 @@ end
 
 
 
-function calculateTeamComp(num)
+function calculateTeamComp(slot)
 	--[[
 	This function will return a number based on what the team composition needs
 	Currently the team set up is grouped into 3 sections: Carry, Support, Other
@@ -128,7 +124,7 @@ function calculateTeamComp(num)
 	local carry,support,other = 0,0,0;
 
 	--Calculate for radiant
-	if (num <= 4) then
+	if (slot <= 4) then
 
 			--Count all carrys on the team
 		for _,h in pairs(botCarry) do
@@ -158,7 +154,7 @@ function calculateTeamComp(num)
 		end
 
 	--Calculate for Dire
-	elseif (num >= 5) then
+elseif (slot >= 5) then
 
 		--Count all carrys on the team
 		for _,h in pairs(botCarry) do
@@ -189,6 +185,8 @@ function calculateTeamComp(num)
 
 	end
 
+	if(debug) then print("Carry: " .. carry .. " Support: " .. support .. " Other: " .. other) end;
+
 --Returns the needed role
 	if(carry<2) then
 			return 1;
@@ -198,6 +196,16 @@ function calculateTeamComp(num)
 			return 3;
 	end
 
+end
+
+function generateHero(type)
+	--[[
+	This function generates a random hero based on the type provided in calculateTeamComp()
+	]]
+
+	if(type == 1) then return botCarry[math.random(table.getn(botCarry))] end
+	if(type == 2) then return botOther[math.random(table.getn(botOther))] end
+	if(type == 3) then return botSupport[math.random(table.getn(botSupport))] end
 end
 
 ----------------------------------------------------------------------------------------------------
